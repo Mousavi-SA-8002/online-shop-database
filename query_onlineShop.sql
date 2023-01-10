@@ -14,7 +14,7 @@ SELECT name
 FROM `online shop`.`category`;
 
 
-/*نمایش لیست دسته بندی محصولات*/
+/*نمایش لیست سفارش ها*/
 SELECT *
 FROM `online shop`.orders;
 
