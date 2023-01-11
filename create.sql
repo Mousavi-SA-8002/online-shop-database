@@ -91,7 +91,7 @@ ENGINE = InnoDB;
 -- Table `online shop`.`profile`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `online shop`.`profile` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -152,7 +152,7 @@ ENGINE = InnoDB;
 -- Table `online shop`.`address`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `online shop`.`address` (
-  `idaddress` INT NOT NULL AUTO_INCREMENT,
+  `idaddress` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `city` VARCHAR(45) NOT NULL,
   `street` VARCHAR(45) NOT NULL,
@@ -224,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `online shop`.`invoice` (
   `status` INT NOT NULL,
   `gateway_authority` VARCHAR(45) NULL,
   `reference_id` VARCHAR(45) NULL,
-  `order_id` INT NULL,
+  `order_id` INT NOT NULL,
   `payment_gateway_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_invoice_order1_idx` (`order_id` ASC) VISIBLE,
@@ -316,8 +316,9 @@ ENGINE = InnoDB;
 -- Table `online shop`.`supplier`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `online shop`.`supplier` (
-  `idsupplier` INT NOT NULL AUTO_INCREMENT,
+  `idsupplier` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idsupplier`))
 ENGINE = InnoDB;
 
@@ -461,6 +462,31 @@ CREATE TABLE IF NOT EXISTS `online shop`.`price_history` (
   CONSTRAINT `fk_price_history_shop_item1`
     FOREIGN KEY (`shop_item_id` , `shop_item_product_model_id` , `shop_item_product_model_product_id` , `shop_item_shop_id`)
     REFERENCES `online shop`.`shop_item` (`id` , `product_model_id` , `product_model_product_id` , `shop_id`)
+    ON DELETE cascade
+    ON UPDATE cascade)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `online shop`.`comment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `online shop`.`comment` (
+  `idcomment` INT NOT NULL,
+  `text` VARCHAR(45) NULL,
+  `product_id` INT NOT NULL,
+  `product_category_id` INT NOT NULL,
+  `profile_id` INT NOT NULL,
+  PRIMARY KEY (`idcomment`),
+  INDEX `fk_comment_product1_idx` (`product_id` ASC, `product_category_id` ASC) VISIBLE,
+  INDEX `fk_comment_profile1_idx` (`profile_id` ASC) VISIBLE,
+  CONSTRAINT `fk_comment_product1`
+    FOREIGN KEY (`product_id` , `product_category_id`)
+    REFERENCES `online shop`.`product` (`id` , `category_id`)
+    ON DELETE cascade
+    ON UPDATE cascade,
+  CONSTRAINT `fk_comment_profile1`
+    FOREIGN KEY (`profile_id`)
+    REFERENCES `online shop`.`profile` (`id`)
     ON DELETE cascade
     ON UPDATE cascade)
 ENGINE = InnoDB;
