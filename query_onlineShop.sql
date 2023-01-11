@@ -50,9 +50,9 @@ where orders.id in(
     from orders,wallet_transactions,wallet,customer
     where wallet_transactions.order_id=order_id and wallet.id=wallet_transactions.wallet_id AND wallet.customer_id=customer_id
     order by orders.datetime desc
-    limit 10
+    /*limit 10*/
 
-    )
+    );
 
 
 
@@ -67,7 +67,7 @@ where  customer.id=address.profile_id and address.city='مشهد';
 /*تامین کنندگان کالا مربوط به یک شهر*/
 select distinct supplier.name
 from `online shop`.supplier
-where supplier.cty='مشهد';
+where supplier.city='مشهد';
 
 
 
