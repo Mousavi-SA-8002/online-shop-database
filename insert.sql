@@ -44,17 +44,40 @@ VALUES (41,'پیراهن','مخمل','پیراهن مخمل',3),
        (42,'شرت','بتمن','شرت بتمن',3);
 
 /******************************************************/
+--                     discount_code
+/******************************************************/
+
+INSERT INTO `online shop`.`discount_code` (code, amount, current_life, initial_life)
+VALUES ('1234',0,5,5);
+
+/******************************************************/
 --                     product_model
 /******************************************************/
 
-INSERT INTO `online shop`.`product_model`
-(`name`,
-`weight`,
-`product_id`)
-VALUES
-('مشکی 128 گیگ',
-173,
-1);
+INSERT INTO `online shop`.`product_model` (id, name, weight, product_id)
+VALUES (1,'pro','124',1);
+
+INSERT INTO `online shop`.`product_model` (id, name, weight, product_id)
+VALUES (2,'pro max','145',1);
+
+INSERT INTO `online shop`.`product_model` (id, name, weight, product_id)
+VALUES (3,'pro','124',2);
+
+INSERT INTO `online shop`.`product_model` (id, name, weight, product_id)
+VALUES (4,'pro360','1245',11);
+
+INSERT INTO `online shop`.`product_model` (id, name, weight, product_id)
+VALUES (5,'ferion','5k',22);
+
+INSERT INTO `online shop`.`product_model` (id, name, weight, product_id)
+VALUES (6,'چوبی قرمز','10k',31);
+
+INSERT INTO `online shop`.`product_model` (id, name, weight, product_id)
+VALUES (7,'قهوه ای','50k',32);
+
+INSERT INTO `online shop`.`product_model` (id, name, weight, product_id)
+VALUES (8,'meshki','50',41);
+
 
 /******************************************************/
 --                     model_attribute
@@ -143,208 +166,114 @@ VALUES (5,'خونه اندیشه','کرمان','اندیشه','اندیشه 87',
 --                     shop
 /******************************************************/
 
-INSERT INTO `online shop`.`shop`
-(`name`)
-VALUES
-('فروشگاه موبایل الکی');
+INSERT INTO `online shop`.`shop` (id, name)
+VALUES (1,'فروشگاه لوازم خانگی');
+
+INSERT INTO `online shop`.`shop` (id, name)
+VALUES (2,'فروشگاه گوشی');
+
+INSERT INTO `online shop`.`shop` (id, name)
+VALUES (3,'فروشگاه لوازم آشپزخانه');
+
+INSERT INTO `online shop`.`shop` (id, name)
+VALUES (4,'فروشگاه لوازم اتاق خواب');
+
+INSERT INTO `online shop`.`shop` (id, name)
+VALUES (5,'فروشگاه لباس');
 
 /******************************************************/
 --                     wallet
 /******************************************************/
 
-INSERT INTO `online shop`.`wallet`
-(`balance`,
-`customer_id`,
-`customer_profile_id`)
-VALUES
-(100000,
-1,
-1);
+INSERT INTO `online shop`.`wallet` (balance, customer_id, customer_profile_id)
+VALUES (50000,1,1);
+
+INSERT INTO `online shop`.`wallet` (balance, customer_id, customer_profile_id)
+VALUES (40000,2,2);
+
+INSERT INTO `online shop`.`wallet` (balance, customer_id, customer_profile_id)
+VALUES (30000,3,3);
+
+INSERT INTO `online shop`.`wallet` (balance, customer_id, customer_profile_id)
+VALUES (70000,4,4);
+
+INSERT INTO `online shop`.`wallet` (balance, customer_id, customer_profile_id)
+VALUES (80000,5,5);
 
 /******************************************************/
 --                     payment_gateway
 /******************************************************/
 
-INSERT INTO `online shop`.`payment_gateway`
-(`name`,
-`bank`,
-`endpoint`,
-`token`,
-`is_active`)
-VALUES
-('درگاه بانک ملت',
-'ملت',
-'https://bankmellat.ir/online/payment',
-'dummygatewaytoken',
-1);
+INSERT INTO `online shop`.`payment_gateway` (id, name, bank, endpoint, token, is_active)
+VALUES (1,'درگاه بانک ملت','ملت','https://bankmellat.ir/online/payment','dummygatewaytoken',1);
+
+/******************************************************/
+--                     orders
+/******************************************************/
+
+INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
+VALUES (curdate(),50000,173,'پست پیشتاز',1000,51000,51000,1,1,1,1);
+
+INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
+VALUES (curdate(),60000,155,'پست پیشتاز',1000,61000,61000,1,1,2,2);
+
+INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
+VALUES (curdate(),20000,73,'پست پیشتاز',1000,21000,21000,1,1,3,3);
+
+INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
+VALUES (curdate(),30000,13,'پست پیشتاز',1000,31000,31000,1,1,4,4);
+
+INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
+VALUES (curdate(),40000,123,'پست پیشتاز',1000,41000,41000,1,1,5,5);
 
 /******************************************************/
 --                     invoice
 /******************************************************/
 
 insert into `online shop`.invoice (amount, status, gateway_authority, reference_id, order_id, payment_gateway_id)
-                            VALUES (7000    ,1      ,'melat'        ,'melat.ir'     ,1         ,1);
+VALUES (7000,1,'melat','melat.ir',1,1);
 
 INSERT INTO `online shop`.`invoice`(amount, status, gateway_authority, reference_id, order_id, payment_gateway_id)
-VALUES (100000,1,'dummygatewayauthority','dummypaymentreferenceid',1,1);
+VALUES (100000,1,'dummygatewayauthority','dummypaymentreferenceid',2,1);
 
-INSERT INTO `online shop`.`invoice`
-(`amount`,
-`status`,
-`gateway_authority`,
-`reference_id`,
-`order_id`,
-`payment_gateway_id`)
-VALUES
-(51000,
-1,
-'dummygatewayauthority2',
-'dummypaymentreferenceid2',
-1,
-1);
+insert into `online shop`.invoice (amount, status, gateway_authority, reference_id, order_id, payment_gateway_id)
+VALUES (8000,1,'melat3','melat3.ir',3,1);
+
+insert into `online shop`.invoice (amount, status, gateway_authority, reference_id, order_id, payment_gateway_id)
+VALUES (9000,1,'melat4','melat4.ir',4,1);
+
+insert into `online shop`.invoice (amount, status, gateway_authority, reference_id, order_id, payment_gateway_id)
+VALUES (5000,1,'melat5','melat5.ir',5,1);
 
 /******************************************************/
 --                     wallet_transactions
 /******************************************************/
 
-INSERT INTO `online shop`.`wallet_transactions`
-(`amount`,
-`datetime`,
-`balance`,
-`wallet_id`,
-`invoice_id`)
-VALUES
-(100000,
-CURDATE(),
-100000,
-1,
-1);
+INSERT INTO `online shop`.`wallet_transactions` (amount, datetime, balance, wallet_id, order_id, invoice_id)
+VALUES (7000,curdate(),70000,1,1,1);
+
+INSERT INTO `online shop`.`wallet_transactions` (amount, datetime, balance, wallet_id, order_id, invoice_id)
+VALUES (8000,curdate(),80000,2,2,2);
+
+INSERT INTO `online shop`.`wallet_transactions` (amount, datetime, balance, wallet_id, order_id, invoice_id)
+VALUES (6000,curdate(),60000,3,3,3);
+
+INSERT INTO `online shop`.`wallet_transactions` (amount, datetime, balance, wallet_id, order_id, invoice_id)
+VALUES (4000,curdate(),40000,4,4,4);
+
+INSERT INTO `online shop`.`wallet_transactions` (amount, datetime, balance, wallet_id, order_id, invoice_id)
+VALUES (5000,curdate(),50000,5,5,5);
 
 /******************************************************/
 --                     shop_item
 /******************************************************/
 
-INSERT INTO `online shop`.`shop_item`
-(`product_model_id`,
-`product_model_product_id`,
-`shop_id`,
-`stock`,
-`price`,
-`discount`)
-VALUES
-(1,
-1,
-1,
-10,
-50000,
-0);
-
-/******************************************************/
---                     orders
-/******************************************************/
-
-INSERT INTO `online shop`.`orders`
-(`datetime`,
-`total_product_price`,
-`total_weight`,
-`shipping_method`,
-`shipping_price`,
-`total_price`,
-`total_price_with_discount_code`,
-`status`,
-`address_idaddress`,
-`address_profile_id`)
-VALUES
-(curdate(),
-50000,
-173,
-'پست پیشتاز',
-1000,
-51000,
-51000,
-1,
-1,
-1);
+INSERT INTO `online shop`.`shop_item` (id, product_model_id, product_model_product_id, shop_id, stock, price, discount)
+VALUES (1,1,1,1,10,99000,0);
 
 /******************************************************/
 --                     order_items
 /******************************************************/
 
-INSERT INTO `online shop`.`order_items`
-(`orders_id`,
-`shop_item_id`,
-`shop_item_product_model_id`,
-`shop_item_product_model_product_id`,
-`shop_item_shop_id`,
-`price_single`,
-`quantity`,
-`price_total`)
-VALUES
-(1,
-1,
-1,
-1,
-1,
-50000,
-1,
-50000);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-INSERT INTO `online shop`.`address` (idaddress, name, city, street, detail, postal_code, profile_id)
-VALUES
-(2,'خانه' ,
-'سبزوار',
-'معلم',
-'معلم 10، پلاک 21، واحد 2',
-'6556123247',
-2);
-INSERT INTO `online shop`.`shop`
-(`name`)
-VALUES
-('فروشگاه موبایل واقعی');
-INSERT INTO `online shop`.`wallet`
-(`balance`,
-`customer_id`,
-`customer_profile_id`)
-VALUES
-(500000,
-2,
-2);
-
-INSERT INTO `online shop`.`invoice` (amount, status, gateway_authority, reference_id, order_id, payment_gateway_id)
-VALUES
-(800000,
-1,
-'mmdrezaygatewayauthority',
-'mmdrezamentreferenceid',
-1,1);
-INSERT INTO `online shop`.`wallet_transactions`
-(`amount`,`datetime`,
-`balance`,
-`wallet_id`,
-`invoice_id`)
-VALUES
-(700000,
-CURDATE(),
-100000,
-2,
-2);
-
-insert into `online shop`.wallet_transactions
-    (amount, datetime, balance, wallet_id, invoice_id)
-values (500 , curdate(), 5,      2,          3);
+INSERT INTO `online shop`.`order_items` (orders_id, shop_item_id, shop_item_product_model_id, shop_item_product_model_product_id, shop_item_shop_id, price_single, quantity, price_total)
+VALUES (1,1,1,1,1,4000,2,8000);

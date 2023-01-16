@@ -43,9 +43,9 @@ group by product_id;
 
 
 /* نمایش 10 سفارش آخر کاربر  */
-select *
-from `online shop`.orders
-where orders.id in(
+select customer.full_name,orders.id,orders.datetime,orders.total_price
+from `online shop`.orders ,`online shop`.customer
+where customer.full_name='Seyed Ali Mousavi' and orders.address_profile_id=customer.profile_id and orders.id in(
     select order_id
     from orders,wallet_transactions,wallet,customer
     where wallet_transactions.order_id=order_id and wallet.id=wallet_transactions.wallet_id AND wallet.customer_id=customer_id
@@ -75,5 +75,5 @@ where supplier.city='مشهد';
 /*نظرات داده شده در رابطه با محصول*/
 select comment.text
 from `online shop`.shop_item , `online shop`.comment
-where shop_item.id=comment.shop_item.id
-order by comment.date;
+where shop_item.id=comment.product_id
+order by comment.idcomment
