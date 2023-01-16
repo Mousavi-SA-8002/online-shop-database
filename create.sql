@@ -472,6 +472,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `online shop`.`comment` (
   `idcomment` INT NOT NULL,
+  `score` INT NOT NULL,
   `text` VARCHAR(45) NULL,
   `product_id` INT NOT NULL,
   `product_category_id` INT NOT NULL,

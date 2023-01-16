@@ -72,8 +72,24 @@ where supplier.city='مشهد';
 
 
 
-/*نظرات داده شده در رابطه با محصول*/
+/*نظرات داده شده در رابطه با یک محصول*/
 select comment.text
 from `online shop`.shop_item , `online shop`.comment
 where shop_item.id=comment.product_id
-order by comment.idcomment
+order by comment.idcomment;
+
+
+
+/*نمایش 3 نظری که بهترین امتیاز را به محصول داده اند*/
+select comment.text,comment.score
+from `online shop`.shop_item , `online shop`.comment
+where shop_item.id=comment.product_id
+order by comment.score desc limit 3;
+
+
+
+/*نمایش 3 نظری که کمترین امتیاز را به محصول داده اند*/
+select comment.text,comment.score
+from `online shop`.shop_item , `online shop`.comment
+where shop_item.id=comment.product_id
+order by comment.score asc limit 3;

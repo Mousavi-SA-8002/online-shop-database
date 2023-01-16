@@ -277,3 +277,22 @@ VALUES (1,1,1,1,10,99000,0);
 
 INSERT INTO `online shop`.`order_items` (orders_id, shop_item_id, shop_item_product_model_id, shop_item_product_model_product_id, shop_item_shop_id, price_single, quantity, price_total)
 VALUES (1,1,1,1,1,4000,2,8000);
+
+/******************************************************/
+--                     order_items
+/******************************************************/
+
+INSERT INTO `online shop`.`comment` (idcomment, score, text, product_id, product_category_id, profile_id)
+VALUES (1,1,'salam 10',1,12,1);
+
+INSERT INTO `online shop`.`comment` (idcomment, score, text, product_id, product_category_id, profile_id)
+VALUES (2,2,'salam 20',1,12,2);
+
+INSERT INTO `online shop`.`comment` (idcomment, score, text, product_id, product_category_id, profile_id)
+VALUES (3,3,'salam 30',1,12,3);
+
+INSERT INTO `online shop`.`comment` (idcomment, score, text, product_id, product_category_id, profile_id)
+VALUES (4,4,'salam 40',1,12,4);
+
+INSERT INTO `online shop`.`comment` (idcomment, score, text, product_id, product_category_id, profile_id)
+VALUES (5,5,'salam 50',1,12,5);
