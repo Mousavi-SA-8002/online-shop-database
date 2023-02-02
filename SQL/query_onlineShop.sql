@@ -19,12 +19,23 @@ SELECT *
 FROM `online shop`.orders;
 
 
-/*fix later*/
-/*نمایش لیست 10 کاربر برتر هفته و ماه */
-SELECT customer.full_name, sum(amount)
-FROM `online shop`.wallet_transactions,`online shop`.wallet ,`online shop`.customer
-where wallet.id=wallet_transactions.wallet_id AND wallet.customer_id=customer_id
-group by customer_id;
+
+/*نمایش لیست 10 کاربر برتر ماه  */
+SELECT c.full_name ,sum(wt.amount) as total
+FROM `online shop`.wallet_transactions as wt left join `online shop`.wallet as w on wt.wallet_id=w.id
+left join `online shop`.customer as c on w.customer_id=c.id
+where wt.datetime>(select now() - interval 30 day )
+group by customer_id
+order by total desc limit 10
+
+
+/*نمایش لیست 10 کاربر برتر هفته  */
+SELECT c.full_name ,sum(wt.amount) as total
+FROM `online shop`.wallet_transactions as wt left join `online shop`.wallet as w on wt.wallet_id=w.id
+left join `online shop`.customer as c on w.customer_id=c.id
+where wt.datetime>(select now() - interval 1 week )
+group by customer_id
+order by total desc limit 10
 
 
 /*نمایش لیست پیشنهادات ویژه*/
@@ -93,13 +104,3 @@ select comment.text,comment.score
 from `online shop`.shop_item , `online shop`.comment
 where shop_item.id=comment.product_id
 order by comment.score asc limit 3;
-
-
-
-
-
-/*نمایش لیست ارزان فروش ترین فروشنده آیتم*/
-select shop.name,shop_item.price
-from `online shop`.shop ,`online shop`.shop_item,`online shop`.product_model,`online shop`.product
-where shop_item.shop_id=shop.id and shop_item.product_model_product_id=product_id
-order by shop_item.price asc limit 1;
