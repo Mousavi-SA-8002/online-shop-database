@@ -104,3 +104,32 @@ select comment.text,comment.score
 from `online shop`.shop_item , `online shop`.comment
 where shop_item.id=comment.product_id
 order by comment.score asc limit 3;
+
+
+/*نمایش لیست ارزان فروش ترین فروشنده آیتم*/
+select shop.name,shop_item.price
+from `online shop`.shop ,`online shop`.shop_item,`online shop`.product_model,`online shop`.product
+where shop_item.shop_id=shop.id and shop_item.product_model_product_id=product_id
+order by shop_item.price asc limit 1;
+
+
+
+
+/*نمایش لیست پر فروش ترین محصولات هفته*/
+select p.Name ,sum(i.quantity) as total
+from `online shop`.orders left join `online shop`.order_items as i on orders.id=i.orders_id left join `online shop`.product as p on i.shop_item_product_model_product_id=p.id
+where orders.datetime>(select now() - interval 1 week )
+group by i.shop_item_product_model_id 
+order by total desc limit 5
+
+
+
+
+
+/*نمایش لیست پر فروش ترین محصولات ماه*/
+select p.Name ,sum(i.quantity) as total
+from `online shop`.orders left join `online shop`.order_items as i on orders.id=i.orders_id left join `online shop`.product as p on i.shop_item_product_model_product_id=p.id
+where orders.datetime>(select now() - interval 30 day )
+group by i.shop_item_product_model_id 
+order by total desc limit 5
+
