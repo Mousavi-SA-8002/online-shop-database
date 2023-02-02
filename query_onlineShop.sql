@@ -93,3 +93,13 @@ select comment.text,comment.score
 from `online shop`.shop_item , `online shop`.comment
 where shop_item.id=comment.product_id
 order by comment.score asc limit 3;
+
+
+
+
+
+/*نمایش لیست ارزان فروش ترین فروشنده آیتم*/
+select shop.name,shop_item.price
+from `online shop`.shop ,`online shop`.shop_item,`online shop`.product_model,`online shop`.product
+where shop_item.shop_id=shop.id and shop_item.product_model_product_id=product_id
+order by shop_item.price asc limit 1;

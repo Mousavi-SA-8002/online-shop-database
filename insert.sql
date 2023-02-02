@@ -215,16 +215,16 @@ INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight,
 VALUES (curdate(),50000,173,'پست پیشتاز',1000,51000,51000,1,1,1,1);
 
 INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
-VALUES (curdate(),60000,155,'پست پیشتاز',1000,61000,61000,1,1,2,2);
+VALUES (curdate(),60000,155,'پست معمولی',1000,61000,61000,1,1,2,2);
 
 INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
-VALUES (curdate(),20000,73,'پست پیشتاز',1000,21000,21000,1,1,3,3);
+VALUES (curdate(),20000,73,'پست درجه1',1000,21000,21000,1,1,3,3);
 
 INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
-VALUES (curdate(),30000,13,'پست پیشتاز',1000,31000,31000,1,1,4,4);
+VALUES (curdate(),30000,13,'پست درجه2',1000,31000,31000,1,1,4,4);
 
 INSERT INTO `online shop`.`orders` (datetime, total_product_price, total_weight, shipping_method, shipping_price, total_price, total_price_with_discount_code, status, discount_code_id, address_idaddress, address_profile_id)
-VALUES (curdate(),40000,123,'پست پیشتاز',1000,41000,41000,1,1,5,5);
+VALUES (curdate(),40000,123,'پست درجه3',1000,41000,41000,1,1,5,5);
 
 /******************************************************/
 --                     invoice
@@ -271,6 +271,12 @@ VALUES (5000,curdate(),50000,5,5,5);
 INSERT INTO `online shop`.`shop_item` (id, product_model_id, product_model_product_id, shop_id, stock, price, discount)
 VALUES (1,1,1,1,10,99000,0);
 
+INSERT INTO `online shop`.`shop_item` (id, product_model_id, product_model_product_id, shop_id, stock, price, discount)
+VALUES (2,1,1,2,10,95000,0);
+
+INSERT INTO `online shop`.`shop_item` (id, product_model_id, product_model_product_id, shop_id, stock, price, discount)
+VALUES (3,1,1,3,10,90000,0);
+
 /******************************************************/
 --                     order_items
 /******************************************************/
@@ -279,7 +285,7 @@ INSERT INTO `online shop`.`order_items` (orders_id, shop_item_id, shop_item_prod
 VALUES (1,1,1,1,1,4000,2,8000);
 
 /******************************************************/
---                     order_items
+--                     comment
 /******************************************************/
 
 INSERT INTO `online shop`.`comment` (idcomment, score, text, product_id, product_category_id, profile_id)
