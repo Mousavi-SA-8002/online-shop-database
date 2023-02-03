@@ -1,15 +1,16 @@
 body {
-    background-color: cornflowerblue;
+    background-image: url("picture/1.jpeg");
 }
 
 .Login {
-    background: rgb(221, 207, 207); 
+    background-image: url("picture/2.jpeg");
     width: 500px;
     margin: 65px auto;
     display: -webkit-box;
     display: flex;
     padding-left: 30px;
-    padding-bottom: 30px; 
+    padding-bottom: 30px;
+    border-radius: 10px;
 }
 
 .login-button {
@@ -35,5 +36,6 @@ body {
     font-size: 16px;
     width: 400px;
     padding: 15px 1px;
+    border-radius: 4px;
 }
 
