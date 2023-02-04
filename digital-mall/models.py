@@ -28,10 +28,6 @@ class Wallet(db.Model):
     __table__ = db.Model.metadata.tables['mydb.wallet']
 
 class WalletTransaction(db.Model):
-    # can have a single order
-    
-    # can have a single order
-    
     __table__ = db.Model.metadata.tables['mydb.wallet_transactions']
 
 class PaymentGateway(db.Model):
@@ -49,11 +45,47 @@ class Order(db.Model):
     # 1-1 WalletTransaction can have an order (upon paying from wallet)
     # Order can have a wallet_transaction (if the order was payed with wallet)
     wallet_transaction = db.relationship('WalletTransaction', backref='order', uselist=False)
+    # Set of invoices, can be empty, only one can be successful
+    invoices = db.relationship('Invoice', backref='order')
+    # items
+    order_items = db.relationship('OrderItem', backref='order')
     __table__ = db.Model.metadata.tables['mydb.orders']
 
 class DiscountCode(db.Model):
     orders = db.relationship('Order', backref='discount_code')
     __table__ = db.Model.metadata.tables['mydb.discount_code']
+
+class Shop(db.Model):
+    shop_items = db.relationship('ShopItem', backref='shop')
+    __table__ = db.Model.metadata.tables['mydb.shop']
+
+class ShopItem(db.Model):
+    order_items = db.relationship('OrderItem', backref='shop_item')
+    price_history = db.relationship('PriceHistory', backref='shop_item')
+    __table__ = db.Model.metadata.tables['mydb.shop_item']
+
+class PriceHistory(db.Model):
+    __table__ = db.Model.metadata.tables['mydb.price_history']
+
+class Product(db.Model):
+    product_models = db.relationship('ProductModel', backref='product')
+    __table__ = db.Model.metadata.tables['mydb.product']
+
+class ProductModel(db.Model):
+    shop_items = db.relationship('ShopItems', backref='product_model')
+    model_attributes = db.relationship('ModelAttribute', backref='product_model')
+    __table__ = db.Model.metadata.tables['mydb.product_model']
+
+class ModelAttribute(db.Model):
+    __table__ = db.Model.metadata.tables['mydb.model_attribute']
+
+class OrderItem(db.Model):
+    __table__ = db.Model.metadata.tables['mydb.order_items']
+
+class Category(db.Model):
+    childs = db.relationship('Category', backref='parent')
+    __table__ = db.Model.metadata.tables['mydb.category']
+
 
 if __name__ == "__main__":
     pass
