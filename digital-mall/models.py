@@ -3,13 +3,13 @@ from app import db, app
 with app.app_context():
     db.Model.metadata.reflect(bind=db.engine,schema='mydb')
 
-def as_dict(self):
-       return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}
+def as_dict(obj):
+       return {c.name: str(getattr(obj, c.name)) for c in obj.__table__.columns}
 
 class Profile(db.Model):    
-    cart = db.relationship('Cart', backref='profile', uselist=False)
-    customer = db.relationship('Customer', backref='profile', uselist=False)
-    addresses = db.relationship('Address', backref='profile')
+    cart = db.relationship('Cart', backref='profile', uselist=False, lazy=True)
+    customer = db.relationship('Customer', backref='profile', uselist=False, lazy=True)
+    addresses = db.relationship('Address', backref='profile', lazy=True)
     __table__ = db.Model.metadata.tables['mydb.profile']
 
 class Cart(db.Model):
@@ -72,7 +72,7 @@ class Product(db.Model):
     __table__ = db.Model.metadata.tables['mydb.product']
 
 class ProductModel(db.Model):
-    shop_items = db.relationship('ShopItems', backref='product_model')
+    shop_items = db.relationship('ShopItem', backref='product_model')
     model_attributes = db.relationship('ModelAttribute', backref='product_model')
     __table__ = db.Model.metadata.tables['mydb.product_model']
 
@@ -83,7 +83,6 @@ class OrderItem(db.Model):
     __table__ = db.Model.metadata.tables['mydb.order_items']
 
 class Category(db.Model):
-    childs = db.relationship('Category', backref='parent')
     __table__ = db.Model.metadata.tables['mydb.category']
 
 
