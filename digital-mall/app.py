@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 from flask.views import MethodView
 from flask import jsonify, request
 
@@ -63,7 +64,26 @@ def register_api(app, model, name):
     app.add_url_rule(f"/api/{name}/<int:id>", view_func=item)
     app.add_url_rule(f"/api/{name}/", view_func=group)
 
+def dict_result(result):
+    if result is not None:
+        return [{key: value for key, value in row.items()} for row in result if row is not None]
+    else:
+        return [{}]
 
+@app.route('/top_10_users')
+def top_10_users():
+    return jsonify(
+        [dict(e._mapping)
+        for e in
+        db.session.execute(text('''
+    SELECT c.id, c.full_name, SUM(ABS(wt.amount)) as total_expense
+FROM wallet_transactions as wt JOIN wallet as w ON wt.wallet_id=w.id
+JOIN customer as c ON w.customer_id=c.id
+WHERE wt.datetime > (select now() - interval 30 day)
+GROUP BY c.id, c.full_name
+ORDER BY total_expense DESC
+    ''')).all()
+        ])
 
 if __name__ == "__main__":
     from models import *
@@ -83,7 +103,6 @@ if __name__ == "__main__":
     register_api(app, Product, "products")
     register_api(app, ProductModel, "product_models")
     register_api(app, ModelAttribute, "model_attributes")
-    register_api(app, OrderItem, "order_items")
     register_api(app, Category, "categories")
 
     app.run(debug=True)

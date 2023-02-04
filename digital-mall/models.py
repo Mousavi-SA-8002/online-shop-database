@@ -7,12 +7,13 @@ def as_dict(obj):
        return {c.name: str(getattr(obj, c.name)) for c in obj.__table__.columns}
 
 class Profile(db.Model):    
-    cart = db.relationship('Cart', backref='profile', uselist=False, lazy=True)
-    customer = db.relationship('Customer', backref='profile', uselist=False, lazy=True)
-    addresses = db.relationship('Address', backref='profile', lazy=True)
+    cart = db.relationship('Cart', backref='profile', uselist=False)
+    customer = db.relationship('Customer', backref='profile', uselist=False)
+    addresses = db.relationship('Address', backref='profile')
     __table__ = db.Model.metadata.tables['mydb.profile']
 
 class Cart(db.Model):
+    cart_items = db.relationship('CartItem', backref='cart')
     __table__ = db.Model.metadata.tables['mydb.cart']
     
 class Address(db.Model):
@@ -61,6 +62,7 @@ class Shop(db.Model):
 
 class ShopItem(db.Model):
     order_items = db.relationship('OrderItem', backref='shop_item')
+    cart_items = db.relationship('CartItem', backref='shop_item')
     price_history = db.relationship('PriceHistory', backref='shop_item')
     __table__ = db.Model.metadata.tables['mydb.shop_item']
 
@@ -80,7 +82,16 @@ class ModelAttribute(db.Model):
     __table__ = db.Model.metadata.tables['mydb.model_attribute']
 
 class OrderItem(db.Model):
+    # this is a m-m relation joint table
+    # order_item.shop_item -> ShopItem
+    # order_item.order -> Order
     __table__ = db.Model.metadata.tables['mydb.order_items']
+
+class CartItem(db.Model):
+    # this is a m-m relation joint table
+    # cart_item.shop_item -> ShopItem
+    # cart_item.cart -> cart
+    __table__ = db.Model.metadata.tables['mydb.cart_items']
 
 class Category(db.Model):
     __table__ = db.Model.metadata.tables['mydb.category']
