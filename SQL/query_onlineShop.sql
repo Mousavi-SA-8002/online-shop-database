@@ -39,9 +39,9 @@ order by total desc limit 10
 
 
 /*نمایش لیست پیشنهادات ویژه*/
-SELECT product.Name
-FROM `online shop`.shop_item ,`online shop`.product ,`online shop`.product_model
- where product_id=product_model_id=product_model_product_id And shop_item.discount>15;
+SELECT product.Name ,shop_item.discount
+FROM `online shop`.shop_item ,`online shop`.product 
+ where product.id=shop_item.product_model_product_id and shop_item.discount>=15;
 
 
 

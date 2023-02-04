@@ -50,6 +50,9 @@ VALUES (41,'پیراهن','مخمل','پیراهن مخمل',3),
 INSERT INTO `online shop`.`discount_code` (code, amount, current_life, initial_life)
 VALUES ('1234',0,5,5);
 
+INSERT INTO `online shop`.`discount_code` (code, amount, current_life, initial_life)
+VALUES ('ahd9k7',5000,10,15);
+
 /******************************************************/
 --                     product_model
 /******************************************************/
@@ -162,6 +165,22 @@ VALUES (4,'خونه آزادی','تهران','آزادی','آزادی 59','85333
 INSERT INTO `online shop`.`address` (idaddress, name, city, street, detail, postal_code, profile_id)
 VALUES (5,'خونه اندیشه','کرمان','اندیشه','اندیشه 87','4533251234',5);
 
+
+/******************************************************/
+--                     cart
+/******************************************************/
+
+INSERT INTO `online shop`.`cart` (`id`, `last_updated`, `profile_id`)
+ VALUES (1, curdate(), 1);
+INSERT INTO `online shop`.`cart` (`id`, `last_updated`, `profile_id`)
+ VALUES (2, curdate(), 2);
+INSERT INTO `online shop`.`cart` (`id`, `last_updated`, `profile_id`)
+ VALUES (3, curdate(), 3);
+INSERT INTO `online shop`.`cart` (`id`, `last_updated`, `profile_id`)
+ VALUES (4, curdate(), 4);
+INSERT INTO `online shop`.`cart` (`id`, `last_updated`, `profile_id`)
+ VALUES (5, curdate(), 5);
+
 /******************************************************/
 --                     shop
 /******************************************************/
@@ -200,12 +219,17 @@ VALUES (70000,4,4);
 INSERT INTO `online shop`.`wallet` (balance, customer_id, customer_profile_id)
 VALUES (80000,5,5);
 
+
+
 /******************************************************/
 --                     payment_gateway
 /******************************************************/
 
 INSERT INTO `online shop`.`payment_gateway` (id, name, bank, endpoint, token, is_active)
 VALUES (1,'درگاه بانک ملت','ملت','https://bankmellat.ir/online/payment','dummygatewaytoken',1);
+
+INSERT INTO `online shop`.`payment_gateway` (id, name, bank, endpoint, token, is_active)
+VALUES (2,'درگاه بانک سپه','سپه','https://banksepah.ir/online/payment','dummygatewaytoken',1);
 
 /******************************************************/
 --                     orders
@@ -269,13 +293,86 @@ VALUES (5000,curdate(),50000,5,5,5);
 /******************************************************/
 
 INSERT INTO `online shop`.`shop_item` (id, product_model_id, product_model_product_id, shop_id, stock, price, discount)
-VALUES (1,1,1,1,10,99000,0);
+VALUES (1,1,1,1,10,99000,5);
 
 INSERT INTO `online shop`.`shop_item` (id, product_model_id, product_model_product_id, shop_id, stock, price, discount)
-VALUES (2,1,1,2,10,95000,0);
+VALUES (2,1,1,2,10,95000,10);
 
 INSERT INTO `online shop`.`shop_item` (id, product_model_id, product_model_product_id, shop_id, stock, price, discount)
-VALUES (3,1,1,3,10,90000,0);
+VALUES (3,1,1,3,10,90000,15);
+
+
+INSERT INTO `online shop`.`shop_item` (id, product_model_id, product_model_product_id, shop_id, stock, price, discount)
+VALUES (4,3,2,4,50,9000,25);
+
+/******************************************************/
+--                     price_history
+/******************************************************/
+
+INSERT INTO `online shop`.`price_history` (`id`, `shop_item_id`, `shop_item_product_model_id`, `shop_item_product_model_product_id`, `shop_item_shop_id`, `price`, `at_datetime`) 
+VALUES ('1', '1', '1', '1', '1', '5000', '2022-01-12 00:00:00');
+
+INSERT INTO `online shop`.`price_history` (`id`, `shop_item_id`, `shop_item_product_model_id`, `shop_item_product_model_product_id`, `shop_item_shop_id`, `price`, `at_datetime`) 
+VALUES ('2', '1', '1', '1', '1', '13000', '2023-01-12 00:00:00');
+
+
+
+/******************************************************/
+--                     cart_items
+/******************************************************/
+
+INSERT INTO `online shop`.`cart_items` (`cart_id`, `cart_profile_id`, `shop_item_id`, `shop_item_product_model_id`, `shop_item_product_model_product_id`, `shop_item_shop_id`, `quantity`)
+ VALUES ('1', '1', '1', '1', '1', '1', '5');
+
+INSERT INTO `online shop`.`cart_items` (`cart_id`, `cart_profile_id`, `shop_item_id`, `shop_item_product_model_id`, `shop_item_product_model_product_id`, `shop_item_shop_id`, `quantity`) 
+VALUES ('2', '2', '2', '1', '1', '2', '10');
+
+INSERT INTO `online shop`.`cart_items` (`cart_id`, `cart_profile_id`, `shop_item_id`, `shop_item_product_model_id`, `shop_item_product_model_product_id`, `shop_item_shop_id`, `quantity`) 
+VALUES ('3', '3', '3', '1', '1', '3', '3');
+
+
+/******************************************************/
+--                     supplier
+/******************************************************/
+
+
+INSERT INTO `online shop`.`supplier` (`idsupplier`, `name`, `city`)
+ VALUES ('1', 'رضوی', 'مشهد');
+
+INSERT INTO `online shop`.`supplier` (`idsupplier`, `name`, `city`)
+ VALUES ('2', 'پارس خزر', 'تهران');
+
+INSERT INTO `online shop`.`supplier` (`idsupplier`, `name`, `city`)
+ VALUES ('3', 'ایران خودرو', 'تهران');
+
+INSERT INTO `online shop`.`supplier` (`idsupplier`, `name`, `city`)
+ VALUES ('4', 'نیان الکترونیک', 'مشهد');
+
+
+/******************************************************/
+--                     supply_contract
+/******************************************************/
+
+INSERT INTO `online shop`.`supply_contract` (`id`, `shop_id`, `supplier_idsupplier`, `since`, `expires`)
+ VALUES ('1', '1', '1', '2023-01-12 00:00:00', '2023-01-12 00:00:00');
+
+INSERT INTO `online shop`.`supply_contract` (`id`, `shop_id`, `supplier_idsupplier`, `since`, `expires`) 
+VALUES ('2', '2', '1', '2023-01-12 00:00:00', '2023-01-12 00:00:00');
+
+INSERT INTO `online shop`.`supply_contract` (`id`, `shop_id`, `supplier_idsupplier`, `since`, `expires`) 
+VALUES ('3', '1', '3', '2023-01-12 00:00:00', '2023-01-12 00:00:00');
+
+
+
+/******************************************************/
+--                     supplied
+/******************************************************/
+
+INSERT INTO `online shop`.`supplied` (`id`, `supply_contract_id`, `product_model_id`, `product_model_product_id`, `quantity`, `price_single`)
+ VALUES ('1', '1', '1', '1', '50', '6000');
+
+INSERT INTO `online shop`.`supplied` (`id`, `supply_contract_id`, `product_model_id`, `product_model_product_id`, `quantity`, `price_single`) 
+VALUES ('2', '2', '2', '1', '100', '20000');
 
 /******************************************************/
 --                     order_items
@@ -283,6 +380,12 @@ VALUES (3,1,1,3,10,90000,0);
 
 INSERT INTO `online shop`.`order_items` (orders_id, shop_item_id, shop_item_product_model_id, shop_item_product_model_product_id, shop_item_shop_id, price_single, quantity, price_total)
 VALUES (1,1,1,1,1,4000,2,8000);
+INSERT INTO `online shop`.`order_items` (`orders_id`, `shop_item_id`, `shop_item_product_model_id`, `shop_item_product_model_product_id`, `shop_item_shop_id`, `price_single`, `quantity`, `price_total`)
+VALUES ('2', '1', '1', '1', '1', '5000', '8', '40000');
+INSERT INTO `online shop`.`order_items` (orders_id, shop_item_id, shop_item_product_model_id, shop_item_product_model_product_id, shop_item_shop_id, price_single, quantity, price_total)
+VALUES (3,3,1,1,3,8000,15,120000);
+INSERT INTO `online shop`.`order_items` (orders_id, shop_item_id, shop_item_product_model_id, shop_item_product_model_product_id, shop_item_shop_id, price_single, quantity, price_total)
+VALUES (4,4,3,2,4,1000,50,50000);
 
 /******************************************************/
 --                     comment
