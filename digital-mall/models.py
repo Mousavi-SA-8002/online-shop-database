@@ -3,6 +3,9 @@ from app import db, app
 with app.app_context():
     db.Model.metadata.reflect(bind=db.engine,schema='mydb')
 
+def as_dict(self):
+       return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}
+
 class Profile(db.Model):    
     cart = db.relationship('Cart', backref='profile', uselist=False)
     customer = db.relationship('Customer', backref='profile', uselist=False)
